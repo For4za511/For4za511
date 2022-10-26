@@ -10,20 +10,20 @@ _G.Check_Setting = function(Name)
         makefolder('SaveSetting')
     end
     if not isfile('SaveSetting/'..Name..'_'..'Setting.json') then
-        writefile('SaveSetting/'..Name..'_'..'Setting.json',JsonEncode(getgenv().Setting))
+        writefile('SaveSetting/'..Name..'_'..'Setting.json',JsonEncode(_G..Setting))
     end
 end
 _G.Get_Setting = function(Name)
-    if isfolder('SaveSetting') and isfile('SaveSetting/'..Name..'_'..'Setting.json') then
-        getgenv().Setting = JsonDecode(readfile('SaveSetting/'..Name..'_'..'Setting.json'))
-        return getgenv().Setting
+    if isfolder('SaveSetting') and isfile('RoSonic Hub/'..Name..'_'..'Setting.json') then
+        _G..Setting = JsonDecode(readfile('RoSonic Hub/'..Name..'_'..'Setting.json'))
+        return _G.Setting
     else
         Check_Setting(Name)
     end
 end
 _G.Update_Setting = function(Name)
-    if isfolder('SaveSetting') and isfile('SaveSetting/'..Name..'_'..'Setting.json') then
-        writefile('SaveSetting/'..Name..'_'..'Setting.json',JsonEncode(getgenv().Setting))
+    if isfolder('SaveSetting') and isfile('RoSonic Hub/'..Name..'_'..'Setting.json') then
+        writefile('SaveSetting/'..Name..'_'..'Setting.json',JsonEncode(_G.Setting))
     else
         Check_Setting(Name)
     end
