@@ -1,0 +1,30 @@
+_G.MyName = game.Players.LocalPlayer.Name
+_G.JsonEncode = function(msg)
+    return game:GetService("HttpService"):JSONEncode(msg)
+end
+_G.JsonDecode = function(msg)
+    return game:GetService("HttpService"):JSONDecode(msg)
+end
+_G.Check_Setting = function(Name)
+    if not isfolder('SaveSetting') then
+        makefolder('SaveSetting')
+    end
+    if not isfile('SaveSetting/'..Name..'_'..'Setting.json') then
+        writefile('SaveSetting/'..Name..'_'..'Setting.json',JsonEncode(getgenv().Setting))
+    end
+end
+_G.Get_Setting = function(Name)
+    if isfolder('SaveSetting') and isfile('SaveSetting/'..Name..'_'..'Setting.json') then
+        getgenv().Setting = JsonDecode(readfile('SaveSetting/'..Name..'_'..'Setting.json'))
+        return getgenv().Setting
+    else
+        Check_Setting(Name)
+    end
+end
+_G.Update_Setting = function(Name)
+    if isfolder('SaveSetting') and isfile('SaveSetting/'..Name..'_'..'Setting.json') then
+        writefile('SaveSetting/'..Name..'_'..'Setting.json',JsonEncode(getgenv().Setting))
+    else
+        Check_Setting(Name)
+    end
+end
